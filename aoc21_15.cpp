@@ -11,8 +11,8 @@ using std::string, std::vector, std::cout;
 string fname;
 int dim, shift, lower, rsize;
 const int inf = 1e9;
-bool test = 1;
-bool partA = 1;
+bool test = 0;
+bool partA = 0;
 
 // grid
 vector<vector<short>> g;
@@ -176,13 +176,13 @@ void solve15b() {
 	// int last = ((dim - 1) << shift) + dim - 1;
 	// 15b:
 	long last = ((5 * dim - 1) << shift) + 5 * dim - 1;
-	cout << "15a: " << cost(last) << '\n';
+	cout << "15b: " << cost(last) << '\n';
 }
 
 void addNum(int num, int x, int y) {
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 5; j++) {
-			g[x + (i * dim)][y + (j * dim)] = (num + i + j) % 10;
+			g[x + (i * dim)][y + (j * dim)] = (num + i + j - 1) % 9 + 1;
 		}
 	}
 }
@@ -192,7 +192,7 @@ void readFileB() {
 	if (in.fail())
 		return;
 	string line;
-	g.resize(dim * 5, vector<short>(dim * 5));
+	g.resize(dim * 5, vector<short>(dim * 5, 100));
 	int rnum = 0;
 	while (std::getline(in, line)) {
 		for (int i = 0; i < dim; i++) {
